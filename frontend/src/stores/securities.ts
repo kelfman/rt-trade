@@ -1,5 +1,5 @@
-import type { Order, Security } from '@/types/index'
-import axios from 'axios'
+import { apiGetSecurities } from '@/api/securities'
+import type { Order, Security } from '@shared/types'
 import { defineStore } from 'pinia'
 
 export const useSecuritiesStore = defineStore('securities', {
@@ -12,7 +12,7 @@ export const useSecuritiesStore = defineStore('securities', {
     async fetchSecurities() {
       // API call to Express server
       try {
-        const response = await axios.get('http://localhost:3001/api/securities')
+        const response = await apiGetSecurities()
         this.securities = response.data
       } catch (error) {
         console.error('Failed to fetch securities:', error)

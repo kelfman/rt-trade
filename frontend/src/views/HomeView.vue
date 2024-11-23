@@ -1,7 +1,7 @@
 <template>
   <SecurityList />
-  <SecurityDetails v-if="selectedSecurity" />
-  <BuyFlow v-if="selectedSecurity" />
+  <SecurityDetails v-if="store.selectedSecurity" />
+  <BuyFlow v-if="store.selectedSecurity" />
   <OrdersTable />
 </template>
 
@@ -12,5 +12,5 @@ import BuyFlow from '@/components/BuyFlow.vue'
 import OrdersTable from '@/components/OrdersTable.vue'
 import { useSecuritiesStore } from '@/stores/securities'
 
-const { selectedSecurity } = useSecuritiesStore()
+const store = useSecuritiesStore()
 </script>

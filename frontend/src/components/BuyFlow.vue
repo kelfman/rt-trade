@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Order } from '@/types/index'
+import type { Order } from '@shared/types'
 import { useSecuritiesStore } from '@/stores/securities'
 import { computed, ref } from 'vue'
 
@@ -25,7 +25,7 @@ const calculatedQuantity = computed(() => {
 const buySecurity = () => {
   if (store.selectedSecurity && calculatedQuantity.value > 0) {
     const order: Order = {
-      securityId: store.selectedSecurity.id,
+      symbol: store.selectedSecurity.symbol,
       quantity: calculatedQuantity.value,
       price: store.selectedSecurity.price,
     }

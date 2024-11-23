@@ -1,7 +1,6 @@
 <template>
   <div v-if="store.selectedSecurity">
     <h2>{{ store.selectedSecurity.name }}</h2>
-    <p>{{ store.selectedSecurity.description }}</p>
     <p>Current Price: ${{ store.selectedSecurity.price }}</p>
   </div>
 </template>

@@ -10,8 +10,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="order in store.orders" :key="order.securityId">
-          <td>{{ order.securityId }}</td>
+        <tr v-for="order in store.orders" :key="order.symbol">
+          <td>{{ order.symbol }}</td>
           <td>{{ order.quantity }}</td>
           <td>${{ order.price }}</td>
         </tr>

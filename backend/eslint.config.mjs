@@ -1,6 +1,7 @@
-import globals from 'globals';
-import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import globals from 'globals'
+import pluginJs from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import 'module-alias/register'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -41,4 +42,4 @@ export default [
       '@typescript-eslint/no-magic-numbers': 'error',
     },
   },
-];
+]
