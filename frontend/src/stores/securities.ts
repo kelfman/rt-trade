@@ -1,4 +1,5 @@
 import { apiGetSecurities } from '@/api/securities'
+import { WebSocket } from '@/services/webSocket'
 import type { Order, Security } from '@shared/types'
 import { defineStore } from 'pinia'
 
@@ -23,6 +24,12 @@ export const useSecuritiesStore = defineStore('securities', {
     },
     selectSecurity(security: Security) {
       this.selectedSecurity = security
+    },
+    initializeWebSocket() {
+      const webSocket = new WebSocket()
+      webSocket.connect((updatedSecurities: Security[]) => {
+        this.securities = updatedSecurities
+      })
     },
   },
 })

@@ -23,5 +23,6 @@ const onSelect = (security: Security) => {
 
 onMounted(async () => {
   await store.fetchSecurities()
+  store.initializeWebSocket()
 })
 </script>
