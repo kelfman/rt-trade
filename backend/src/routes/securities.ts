@@ -9,16 +9,19 @@ securitesRoutes.route('/api/securities').get((req: Request, res: Response) => {
 })
 
 export const initSecuritiesSocket = (io: Server) => {
+  io.sockets.disconnectSockets()
+
   io.on('connection', (socket) => {
     console.log('Socket connected', socket.id)
 
     // Send price updates every second
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       socket.emit('priceUpdate', getUpdatedSecurities())
     }, 1000)
 
     socket.on('disconnect', () => {
       console.log('Socket disconnected')
+      clearInterval(intervalId) // Prevent leaks
     })
   })
 }

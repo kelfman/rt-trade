@@ -1,14 +1,27 @@
 <template>
   <div v-if="store.selectedSecurity">
-    <h3>Buy {{ store.selectedSecurity.name }}</h3>
-    <input type="number" v-model="notionalAmount" placeholder="Enter amount in dollars" />
-    <p>Quantity: {{ calculatedQuantity }}</p>
-    <button @click="buySecurity">Buy</button>
+    <div class="title">Notitonal dollar amount:</div>
+    <div>
+      <div class="inputRow">
+        <InputNumber
+          v-model="notionalAmount"
+          inputId="minmaxfraction"
+          :maxFractionDigits="2"
+          :min="0"
+        />
+        <Button
+          class="buyButton"
+          @click="buySecurity"
+          :disabled="calculatedQuantity === 0"
+          label="Buy"
+        />
+      </div>
+      <div class="quantity">Quantity: {{ calculatedQuantity }}</div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Order } from '@shared/types'
 import { useSecuritiesStore } from '@/stores/securities'
 import { computed, ref } from 'vue'
 
@@ -23,13 +36,32 @@ const calculatedQuantity = computed(() => {
 })
 
 const buySecurity = () => {
-  if (store.selectedSecurity && calculatedQuantity.value > 0) {
-    const order: Order = {
-      symbol: store.selectedSecurity.symbol,
-      quantity: calculatedQuantity.value,
-      price: store.selectedSecurity.price,
-    }
-    store.addOrder(order)
-  }
+  if (!store.selectedSecurity || calculatedQuantity.value <= 0) return
+
+  store.addOrder({
+    symbol: store.selectedSecurity.symbol,
+    quantity: calculatedQuantity.value,
+    price: store.selectedSecurity.price,
+  })
 }
 </script>
+
+<style>
+.inputRow {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.title {
+  font-weight: bold;
+  font-size: large;
+}
+
+.buyButton {
+  margin-left: 0.5rem;
+}
+
+.quantity {
+  margin-top: 0.5rem;
+}
+</style>

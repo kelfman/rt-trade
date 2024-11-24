@@ -1,16 +1,64 @@
 <template>
-  <SecurityList />
-  <SecurityDetails v-if="store.selectedSecurity" />
-  <BuyFlow v-if="store.selectedSecurity" />
-  <OrdersTable />
+  <div class="layout" v-if="isLargeScreen">
+    <div class="left"><WatchList /></div>
+    <div class="main">
+      <div class="search">
+        <SearchSecurities />
+      </div>
+      <div class="securityDetails">
+        <SecurityDetails v-if="store.selectedSecurity" />
+      </div>
+      <div class="orderHistory">
+        <OrderHistory />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import SecurityList from '@/components/SecurityList.vue'
+import WatchList from '@/components/WatchList.vue'
 import SecurityDetails from '@/components/SecurityDetails.vue'
-import BuyFlow from '@/components/BuyFlow.vue'
-import OrdersTable from '@/components/OrdersTable.vue'
+import OrderHistory from '@/components/OrderHistory.vue'
 import { useSecuritiesStore } from '@/stores/securities'
+import SearchSecurities from '@/components/SearchSecurities.vue'
+import { useMediaQuery } from '@vueuse/core'
 
 const store = useSecuritiesStore()
+
+const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
+
+<style>
+.layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 4em;
+  padding: 2rem;
+}
+
+.left {
+  min-width: 20rem;
+  max-width: 30rem;
+  flex: 1 1 30%;
+}
+
+.main {
+  flex: 1 1 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  margin-bottom: 2rem;
+}
+
+.securityDetails {
+  flex: 1 1 50%;
+}
+
+.orderHistory {
+  margin-top: 2rem;
+  flex: 1 1 50%;
+}
+</style>
