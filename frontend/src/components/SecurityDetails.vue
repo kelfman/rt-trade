@@ -47,9 +47,15 @@ const title = computed(() => `${store.selectedSecurity?.name} (${store.selectedS
 }
 
 .button {
-  /* hack! */
-  top: -2.5rem;
-  float: right;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+  .button {
+    /* hack! */
+    top: -2.5rem;
+    float: right;
+  }
 }
 
 .buyFlow {
