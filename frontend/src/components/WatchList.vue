@@ -1,5 +1,5 @@
 <template>
-  <Panel class="panel" header="Watch List">
+  <Panel class="panel" :header="unstyled ? '' : 'Watch List'" :unstyled="unstyled">
     <div v-if="!store.watchList.length">Your watch list is empty</div>
     <div
       class="item"
@@ -12,7 +12,7 @@
         <div>Last</div>
         <div>{{ security.price }}</div>
       </div>
-      <Divider v-if="index !== store.securities.length - 1" />
+      <Divider v-if="index !== store.watchList.length - 1" />
     </div>
   </Panel>
 </template>
@@ -20,6 +20,10 @@
 <script setup lang="ts">
 import { useSecuritiesStore } from '@/stores/securities'
 import { onMounted } from 'vue'
+
+defineProps<{
+  unstyled?: boolean
+}>()
 
 const store = useSecuritiesStore()
 

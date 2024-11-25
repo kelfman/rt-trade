@@ -13,6 +13,30 @@
       </div>
     </div>
   </div>
+
+  <div class="layoutSmall" v-if="!isLargeScreen">
+    <Tabs value="main">
+      <TabList>
+        <Tab value="main">Main</Tab>
+        <Tab value="watchList">Watch List</Tab>
+        <Tab value="orderHistory">Order History</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel value="main">
+          <div class="search">
+            <SearchSecurities />
+          </div>
+          <SecurityDetails v-if="store.selectedSecurity" />
+        </TabPanel>
+        <TabPanel value="watchList">
+          <WatchList unstyled />
+        </TabPanel>
+        <TabPanel value="orderHistory">
+          <OrderHistory unstyled />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  </div>
 </template>
 
 <script setup lang="ts">

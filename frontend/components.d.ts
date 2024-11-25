@@ -25,6 +25,11 @@ declare module 'vue' {
     SecurityList: typeof import('./src/components/SecurityList.vue')['default']
     Splitter: typeof import('primevue/splitter')['default']
     SplitterPanel: typeof import('primevue/splitterpanel')['default']
+    Tab: typeof import('primevue/tab')['default']
+    TabList: typeof import('primevue/tablist')['default']
+    TabPanel: typeof import('primevue/tabpanel')['default']
+    TabPanels: typeof import('primevue/tabpanels')['default']
+    Tabs: typeof import('primevue/tabs')['default']
     WatchList: typeof import('./src/components/WatchList.vue')['default']
   }
 }

@@ -1,6 +1,7 @@
 <template>
-  <Panel class="panel" header="Order History" v-if="history.length > 0">
-    <DataTable :value="history" tableStyle="min-width: 50rem">
+  <Panel class="panel" :header="unstyled ? '' : 'Order History'" :unstyled="unstyled">
+    <div v-if="history.length === 0">No orders yet</div>
+    <DataTable v-if="history.length > 0" :value="history" tableStyle="min-width: 50rem">
       <Column field="symbol" header="Security" />
       <Column field="quantity" header="Quantity" />
       <Column field="price" header="Unit cost" />
@@ -13,6 +14,10 @@
 import { useSecuritiesStore } from '@/stores/securities'
 import { rounded } from '@/util/math'
 import { computed } from 'vue'
+
+defineProps<{
+  unstyled?: boolean
+}>()
 
 const store = useSecuritiesStore()
 
