@@ -1,9 +1,9 @@
 <template>
   <Panel class="panel" :header="unstyled ? '' : 'Watch List'" :unstyled="unstyled">
-    <div v-if="!store.watchList.length">Your watch list is empty</div>
+    <div v-if="!securitiesStore.watchList.length">Your watch list is empty</div>
     <div
       class="item"
-      v-for="(security, index) in store.watchList"
+      v-for="(security, index) in securitiesStore.watchList"
       :key="security.symbol"
       @click="onSelect(security.symbol)"
     >
@@ -12,7 +12,7 @@
         <div>Last</div>
         <div>{{ security.price }}</div>
       </div>
-      <Divider v-if="index !== store.watchList.length - 1" />
+      <Divider v-if="index !== securitiesStore.watchList.length - 1" />
     </div>
   </Panel>
 </template>
@@ -20,20 +20,23 @@
 <script setup lang="ts">
 import { useSecuritiesStore } from '@/stores/securities'
 import { onMounted } from 'vue'
+import { useNavigationStore } from '@/stores/navigation'
 
 defineProps<{
   unstyled?: boolean
 }>()
 
-const store = useSecuritiesStore()
+const securitiesStore = useSecuritiesStore()
+const navigationStore = useNavigationStore()
 
 const onSelect = (symbol: string) => {
-  store.selectSecurity(symbol)
+  securitiesStore.selectSecurity(symbol)
+  navigationStore.selectTab('main')
 }
 
 onMounted(async () => {
-  await store.fetchSecurities()
-  store.watchSecurities()
+  await securitiesStore.fetchSecurities()
+  securitiesStore.watchSecurities()
 })
 </script>
 

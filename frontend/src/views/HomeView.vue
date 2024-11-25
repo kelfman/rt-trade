@@ -6,7 +6,7 @@
         <SearchSecurities />
       </div>
       <div class="securityDetails">
-        <SecurityDetails v-if="store.selectedSecurity" />
+        <SecurityDetails v-if="securitiesStore.selectedSecurity" />
       </div>
       <div class="orderHistory">
         <OrderHistory />
@@ -15,7 +15,7 @@
   </div>
 
   <div class="layoutSmall" v-if="!isLargeScreen">
-    <Tabs value="main">
+    <Tabs v-model:value="nanvigationStore.selectedTab">
       <TabList>
         <Tab value="main">Main</Tab>
         <Tab value="watchList">Watch List</Tab>
@@ -26,7 +26,7 @@
           <div class="search">
             <SearchSecurities />
           </div>
-          <SecurityDetails v-if="store.selectedSecurity" />
+          <SecurityDetails v-if="securitiesStore.selectedSecurity" />
         </TabPanel>
         <TabPanel value="watchList">
           <WatchList unstyled />
@@ -46,8 +46,10 @@ import OrderHistory from '@/components/OrderHistory.vue'
 import { useSecuritiesStore } from '@/stores/securities'
 import SearchSecurities from '@/components/SearchSecurities.vue'
 import { useMediaQuery } from '@vueuse/core'
+import { useNavigationStore } from '@/stores/navigation'
 
-const store = useSecuritiesStore()
+const securitiesStore = useSecuritiesStore()
+const nanvigationStore = useNavigationStore()
 
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
